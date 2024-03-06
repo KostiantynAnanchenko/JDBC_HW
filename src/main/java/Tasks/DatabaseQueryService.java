@@ -68,20 +68,16 @@ public class DatabaseQueryService {
             Connection connection = Database.getInstance().getConnection();
             Statement statement = connection.createStatement();
 
-            // Зчитуємо SQL-запит з файлу
             String query = new String(Files.readAllBytes(Paths.get("sql/find_longest_project.sql")));
 
-            // Виконуємо запит і отримуємо результат
             ResultSet resultSet = statement.executeQuery(query);
 
-            // Виводимо результат
             while (resultSet.next()) {
-                int projectId = resultSet.getInt(1); // Використовуємо індекс 1 для стовпця ID
-                int monthCount = resultSet.getInt(2); // Використовуємо індекс 2 для стовпця MONTH_COUNT
+                int projectId = resultSet.getInt(1);
+                int monthCount = resultSet.getInt(2);
                 System.out.println("Project ID: " + projectId + ", Month Count: " + monthCount);
             }
 
-            // Закриваємо ресурси
             resultSet.close();
             statement.close();
             connection.close();
